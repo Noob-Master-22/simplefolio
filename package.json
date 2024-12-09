@@ -34,5 +34,8 @@
   "main": "index.js",
   "directories": {
     "example": "examples"
+  },
+  "engines": {
+     "node":"17.x"
   }
 }

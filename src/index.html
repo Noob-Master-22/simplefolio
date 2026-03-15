@@ -1,296 +1,419 @@
-<!--
-  Hello!
-  -
-  Simplefolio is a clean and responsive portfolio template for Developers!
-  Created by Jacobo Martinez.
-  -
-  Github Repo: https://github.com/cobiwave/simplefolio/
-  Readme: https://github.com/cobiwave/simplefolio/README.md
-  -
-  For business & inquires, contact me -> jacobojavier98@gmail.com
--->
 <!DOCTYPE html>
-<html lang="en" class="sr">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/png" href="assets/favicon.png" />
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Satvik Srujan Reddy — AI Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #060610; --bg2: #0d0d1a; --cyan: #00d4ff;
+      --purple: #7c3aed; --pink: #ec4899; --text: #e2e8f0;
+      --muted: #64748b; --card: rgba(255,255,255,0.03);
+      --border: rgba(255,255,255,0.06);
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; cursor: none; }
+    .cursor { width: 10px; height: 10px; background: var(--cyan); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; mix-blend-mode: screen; }
+    .cursor-ring { width: 40px; height: 40px; border: 1px solid rgba(0,212,255,0.4); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 2px; }
 
-    <!-- Todo: put here your site title -->
-    <title>Satvik Reddy| Developer</title>
-    <!-- Todo: add some coding keywords below - e.g: (javascript, yourusername, etc) -->
-    <meta name="keywords" content="[username], [name], skill" />
-    <!-- Todo: improve your SEO by adding a small description of you -->
-    <meta name="description" content="[Your name here] | Developer" />
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 4rem; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s, backdrop-filter 0.3s; }
+    nav.scrolled { background: rgba(6,6,16,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: var(--cyan); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--cyan); }
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link rel="stylesheet" href="styles.scss" />
-    <script
-      defer
-      src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"
-    ></script>
+    /* HERO */
+    #hero { min-height: 100vh; display: flex; align-items: center; position: relative; padding: 0 4rem; overflow: hidden; }
+    canvas#particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.45; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.1; pointer-events: none; }
+    .orb-1 { width: 550px; height: 550px; background: var(--cyan); top: -120px; right: 8%; }
+    .orb-2 { width: 420px; height: 420px; background: var(--purple); bottom: 5%; right: 3%; }
+    .hero-content { position: relative; z-index: 2; max-width: 820px; }
+    .hero-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: var(--cyan); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem; }
+    .hero-tag::before { content: ''; width: 28px; height: 1px; background: var(--cyan); }
+    .hero-name { font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.05; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .gradient-text { background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-typed { font-size: clamp(1.1rem, 2.5vw, 1.6rem); color: var(--muted); margin-bottom: 1.5rem; font-weight: 300; min-height: 2.2rem; }
+    .hero-typed span { color: var(--text); font-weight: 500; }
+    .hero-desc { font-size: 1rem; color: var(--muted); line-height: 1.9; max-width: 520px; margin-bottom: 2.5rem; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { padding: 0.8rem 2rem; background: linear-gradient(135deg, var(--cyan), var(--purple)); color: white; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: 500; text-decoration: none; cursor: none; transition: opacity 0.2s, transform 0.2s; }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+    .btn-outline { padding: 0.8rem 2rem; background: transparent; color: var(--text); border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; font-weight: 500; text-decoration: none; cursor: none; transition: border-color 0.2s, color 0.2s, transform 0.2s; }
+    .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
+    .hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--muted); font-size: 0.78rem; }
+    .scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--cyan), transparent); animation: scrollLine 1.6s ease-in-out infinite; }
+    @keyframes scrollLine { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
 
-    <!-- Todo: remove the below script once you finish your portfolio -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-  </head>
+    /* SECTIONS */
+    section { padding: 6rem 4rem; }
+    .inner { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.75rem; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; margin-bottom: 3rem; letter-spacing: -0.02em; }
+    .fade-in { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-  <!-- Todo: read the following HTML Todos to create your stunning portfolio website -->
-  <body>
-    <div id="top"></div>
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 4rem; align-items: start; }
+    .about-text p { color: var(--muted); line-height: 1.9; margin-bottom: 1.2rem; font-size: 0.97rem; }
+    .about-text p strong { color: var(--text); }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+    .stat-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-4px); }
+    .stat-number { font-size: 2rem; font-weight: 700; color: var(--cyan); display: block; }
+    .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 0.3rem; }
 
-    <!-- **** Hero Section **** -->
-    <section id="hero" class="jumbotron">
-      <div class="container">
-        <h1 class="hero-title load-hidden">
-          Hi, my name is <span class="text-color-main">Satvik Reddy</span>
-          <br />
-          I'm a Web Developer.
-        </h1>
-        <p class="hero-cta load-hidden">
-          <a rel="noreferrer" class="cta-btn cta-btn--hero" href="#about"
-            >Know more</a
-          >
-        </p>
+    /* EXPERIENCE */
+    #experience { background: var(--bg2); }
+    .exp-container { max-width: 860px; margin: 0 auto; }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--cyan), transparent); }
+    .timeline-item { position: relative; padding-bottom: 3rem; padding-left: 2rem; }
+    .timeline-item::before { content: ''; position: absolute; left: -2.3rem; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 14px var(--cyan); }
+    .timeline-date { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--cyan); margin-bottom: 0.4rem; }
+    .timeline-role { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .timeline-company { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+    .timeline-bullets { list-style: none; }
+    .timeline-bullets li { color: var(--muted); font-size: 0.88rem; line-height: 1.75; padding-left: 1.2rem; position: relative; margin-bottom: 0.45rem; }
+    .timeline-bullets li::before { content: '▹'; position: absolute; left: 0; color: var(--cyan); }
+
+    /* PROJECTS */
+    .featured-project { display: grid; grid-template-columns: 1fr 1.5fr; margin-bottom: 1.5rem; background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+    .featured-project:hover { border-color: rgba(0,212,255,0.22); transform: translateY(-4px); }
+    .project-visual { background: linear-gradient(135deg, rgba(0,212,255,0.05), rgba(124,58,237,0.09)); display: flex; align-items: center; justify-content: center; font-size: 5rem; min-height: 240px; }
+    .project-content { padding: 2.2rem; }
+    .project-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.7rem; }
+    .project-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.9rem; letter-spacing: -0.01em; }
+    .project-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.8; margin-bottom: 1.4rem; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.4rem; }
+    .stack-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.73rem; padding: 3px 10px; border-radius: 4px; background: rgba(0,212,255,0.07); color: var(--cyan); border: 1px solid rgba(0,212,255,0.15); }
+    .project-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; margin-right: 1.2rem; transition: color 0.2s; }
+    .project-links a:hover { color: var(--cyan); }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 1.2rem; }
+    .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.8rem; transition: border-color 0.3s, transform 0.3s; display: flex; flex-direction: column; }
+    .project-card:hover { border-color: rgba(124,58,237,0.35); transform: translateY(-5px); }
+    .card-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .card-title { font-size: 0.97rem; font-weight: 600; margin-bottom: 0.7rem; }
+    .card-desc { color: var(--muted); font-size: 0.84rem; line-height: 1.75; flex: 1; margin-bottom: 1rem; }
+
+    /* SKILLS */
+    #skills { background: var(--bg2); }
+    .skills-container { max-width: 860px; margin: 0 auto; }
+    .skill-group { margin-bottom: 2rem; }
+    .skill-group-title { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .pill { padding: 6px 16px; border-radius: 100px; font-size: 0.84rem; border: 1px solid; transition: transform 0.2s, box-shadow 0.2s; cursor: default; }
+    .pill:hover { transform: translateY(-2px); }
+    .pill-cyan { background: rgba(0,212,255,0.06); border-color: rgba(0,212,255,0.2); color: #67e8f9; }
+    .pill-purple { background: rgba(124,58,237,0.06); border-color: rgba(124,58,237,0.2); color: #a78bfa; }
+    .pill-pink { background: rgba(236,72,153,0.06); border-color: rgba(236,72,153,0.2); color: #f9a8d4; }
+    .pill-green { background: rgba(16,185,129,0.06); border-color: rgba(16,185,129,0.2); color: #6ee7b7; }
+
+    /* CONTACT */
+    #contact-wrap { text-align: center; max-width: 580px; margin: 0 auto; }
+    #contact-wrap p { color: var(--muted); line-height: 1.85; margin-bottom: 2.2rem; font-size: 0.97rem; }
+    .contact-email { font-family: 'JetBrains Mono', monospace; font-size: 0.92rem; color: var(--cyan); text-decoration: none; display: inline-block; margin-bottom: 2.5rem; padding: 1rem 2.5rem; border: 1px solid rgba(0,212,255,0.25); border-radius: 8px; transition: background 0.2s, transform 0.2s; }
+    .contact-email:hover { background: rgba(0,212,255,0.05); transform: translateY(-2px); }
+    .social-links { display: flex; justify-content: center; gap: 2.5rem; }
+    .social-links a { color: var(--muted); text-decoration: none; font-size: 0.88rem; letter-spacing: 0.05em; transition: color 0.2s; }
+    .social-links a:hover { color: var(--text); }
+
+    footer { padding: 2rem 4rem; text-align: center; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.78rem; font-family: 'JetBrains Mono', monospace; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.5rem; }
+      #hero { padding: 0 1.5rem; }
+      .about-grid, .featured-project { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">satvik.dev</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="particles"></canvas>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Open to new opportunities</div>
+    <h1 class="hero-name">
+      Satvik Srujan<br>
+      <span class="gradient-text">Reddy</span>
+    </h1>
+    <div class="hero-typed">I build <span id="typed"></span></div>
+    <p class="hero-desc">
+      AI Engineer crafting production-grade GenAI systems — RAG pipelines,
+      multi-agent workflows, LLM fine-tuning, and voice agents.
+      Turning cutting-edge AI research into systems that actually ship.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="https://github.com/Noob-Master-22" target="_blank" class="btn-outline">GitHub ↗</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section>
+  <div class="inner fade-in" id="about">
+    <div class="section-label">01. about</div>
+    <h2 class="section-title">Who I Am</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm an <strong>AI Engineer</strong> based in Pune, India, with 1+ year of hands-on experience building and shipping production AI systems. My work sits at the intersection of <strong>Generative AI, LLM engineering, and full-stack development</strong>.</p>
+        <p>At <strong>Bassre Tech</strong>, I designed RAG pipelines that cut hallucination rates by 27%, architected multi-agent LangGraph workflows managing 5+ concurrent long-running pipelines, and built a real-time voice agent for patient-facing healthcare on AWS Bedrock.</p>
+        <p>I work across the full stack — fine-tuning LLMs locally with LoRA on my MacBook M1, deploying scalable FastAPI backends, and building React interfaces. I care deeply about systems that <strong>work in production</strong>.</p>
+        <p>B.Tech Computer Science — Vignan's Institute of IT · <strong>8.2 CGPA</strong></p>
       </div>
-    </section>
-    <!-- /END Hero Section -->
+      <div class="stats-grid">
+        <div class="stat-card"><span class="stat-number">5+</span><span class="stat-label">Production AI Projects</span></div>
+        <div class="stat-card"><span class="stat-number">8+</span><span class="stat-label">LLMs Worked With</span></div>
+        <div class="stat-card"><span class="stat-number">2</span><span class="stat-label">Companies</span></div>
+        <div class="stat-card"><span class="stat-number">35%</span><span class="stat-label">Latency Reduction</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- **** About Section **** -->
-    <section id="about">
-      <div class="container">
-        <h2 class="section-title load-hidden">About me</h2>
-        <div class="row about-wrapper">
-          <div class="col-md-6 col-sm-12">
-            <div class="about-wrapper__image load-hidden">
-              <img
-                alt="Profile Image"
-                class="img-fluid rounded shadow-lg"
-                height="auto"
-                width="300px"
-                src="assets/profile.jpg"
-                alt="Profile Image"
-              />
-            </div>
-          </div>
-          <div class="col-md-6 col-sm-12">
-            <div class="about-wrapper__info load-hidden">
-              <p class="about-wrapper__info-text">
-                I'm an aspiring web developer with a strong interest in building modern web applications using the MERN stack. I enjoy solving real-world problems through clean and efficient code while continuously improving my skills.
-              </p>
-              <p class="about-wrapper__info-text">
-                In my free time, I love listening to music and reading books, which help me relax and spark creativity. I’m always eager to learn new technologies, work on exciting projects, and explore how tech can simplify everyday tasks.
-              </p>
-              <span class="d-flex mt-3">
-                <a
-                  rel="noreferrer"
-                  target="_blank"
-                  class="cta-btn cta-btn--resume"
-                  href="assets/Satvik's_resume.pdf"
-                >
-                  View Resume
-                </a>
-              </span>
-            </div>
-          </div>
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="exp-container fade-in">
+    <div class="section-label">02. experience</div>
+    <h2 class="section-title">Where I've Worked</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">Mar 2025 – Dec 2025</div>
+        <div class="timeline-role">AI Engineer</div>
+        <div class="timeline-company">Bassre Tech · Remote</div>
+        <ul class="timeline-bullets">
+          <li>Designed production RAG pipelines using LangChain, FAISS, and Pinecone over healthcare documents — improved retrieval accuracy by 32%, reduced hallucinations by 27%</li>
+          <li>Architected stateful multi-agent workflows using LangGraph with autonomous decision routing across 5+ concurrent long-running pipelines, cutting failure rate by 40%</li>
+          <li>Built a real-time voice agent with AWS Bedrock + Nova Sonic, reducing response latency by 35% for patient-facing healthcare interactions</li>
+          <li>Established LLMOps practices with GitHub Actions CI/CD and LangSmith monitoring, cutting mean deployment time by 22%</li>
+        </ul>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Sept 2024 – Feb 2025</div>
+        <div class="timeline-role">Software Development Intern</div>
+        <div class="timeline-company">Empatric India Pvt Ltd · Remote</div>
+        <ul class="timeline-bullets">
+          <li>Built full-stack React components integrated with REST APIs and backend data pipelines, improving data rendering consistency across production dashboards</li>
+          <li>Identified serialization bottlenecks in REST API integrations, improving load performance by 16%</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section>
+  <div class="inner fade-in" id="projects">
+    <div class="section-label">03. projects</div>
+    <h2 class="section-title">Things I've Built</h2>
+
+    <div class="featured-project">
+      <div class="project-visual">🎙️</div>
+      <div class="project-content">
+        <div class="project-tag">⭐ Featured Project</div>
+        <h3 class="project-title">Healthcare Voice Agent</h3>
+        <p class="project-desc">Real-time conversational voice agent for patient-facing healthcare. Built with AWS Bedrock and Nova Sonic with integrated STT/TTS pipelines, maintaining session context across multi-turn conversations. Reduced average response latency by <strong style="color:var(--text)">35%</strong>. Monitored live via LangSmith in production.</p>
+        <div class="project-stack">
+          <span class="stack-tag">AWS Bedrock</span><span class="stack-tag">Nova Sonic</span>
+          <span class="stack-tag">LangSmith</span><span class="stack-tag">Python</span><span class="stack-tag">STT/TTS</span>
         </div>
+        <div class="project-links"><a href="https://github.com/Noob-Master-22" target="_blank">↗ GitHub</a></div>
       </div>
-    </section>
-    <!-- /END About Section -->
+    </div>
 
-    <!-- **** Projects Section **** -->
-    <section id="projects">
-      <div class="container">
-        <div class="project-wrapper">
-          <h2 class="section-title dark-blue-text">Projects</h2>
-
-          <!-- Notice: each .row is a project -->
-          <div class="row">
-            <div class="col-lg-4 col-sm-12">
-              <div class="project-wrapper__text load-hidden">
-                <h3 class="project-wrapper__text-title">Notes App</h3>
-                <div>
-                  <p class="mb-4">
-                    Developed a full-featured notes application using React.js that allows users to create, edit, and delete notes efficiently. The application ensures data persistence by storing notes locally.Implemented features like search, categorization, and a rich-text editor for better note management. Designed a responsive and user-friendly interface with dark mode support for an enhanced user experience.
-                  </p>
-                </div>
-                
-                <a
-                rel="noreferrer"
-                target="_blank"
-                class="cta-btn cta-btn--hero"
-                href="https://github.com/Noob-Master-22/notes_app"
-                >
-                  Source Code
-                </a>
-              </div>
-            </div>
-            <div class="col-lg-8 col-sm-12">
-              <div class="project-wrapper__image load-hidden">
-                <a rel="noreferrer" href="#!" target="_blank">
-                  <div
-                    data-tilt
-                    data-tilt-max="4"
-                    data-tilt-glare="true"
-                    data-tilt-max-glare="0.5"
-                    class="thumbnail rounded js-tilt"
-                  >
-                    <img
-                      alt="Project Image"
-                      class="img-fluid"
-                      src="assets/project.jpg"
-                    />
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-          <!-- /END Project -->
-
-          <!-- Notice: each .row is a project -->
-          <div class="row">
-            <div class="col-lg-4 col-sm-12">
-              <div class="project-wrapper__text load-hidden">
-                <h3 class="project-wrapper__text-title">Live Document Editor</h3>
-                <div>
-                  <p class="mb-4">
-                    Built a real-time collaborative text editor using React.js, WebSockets, and a Markdown parser. The platform allows multiple users to edit documents simultaneously with instant updates and seamless synchronization.
-                    Integrated Markdown parsing for rich-text format and live content rendering.The editor features a user friendly interface with text styling options, ensuring an efficient and interactive collaborative experience.
-                  </p>
-                </div>
-                <a
-                  rel="noreferrer"
-                  target="_blank"
-                  class="cta-btn cta-btn--hero"
-                  href="https://github.com/Noob-Master-22/live-document-editor-sockets"
-                >
-                  Source Code
-                </a>
-                
-              </div>
-            </div>
-            <div class="col-lg-8 col-sm-12">
-              <div class="project-wrapper__image load-hidden">
-                <a rel="noreferrer" href="#!" target="_blank">
-                  <div
-                    data-tilt
-                    data-tilt-max="4"
-                    data-tilt-glare="true"
-                    data-tilt-max-glare="0.5"
-                    class="thumbnail rounded js-tilt"
-                  >
-                    <img
-                      alt="Project Image"
-                      class="img-fluid"
-                      src="assets/Image-3.jpg"
-                    />
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-          <!-- /END Project -->
-
-          <!-- Notice: each .row is a project -->
-          <div class="row">
-            <div class="col-lg-4 col-sm-12">
-              <div class="project-wrapper__text load-hidden">
-                <h3 class="project-wrapper__text-title">News Application</h3>
-                <div>
-                  <p class="mb-4">
-                    Developed a responsive full-stack news application featuring user authentication for personalized experiences. Integrated a real-time news feed that fetches and displays the latest articles from multiple sources.
-                    Implemented search functinality, enabling users to filter news by categories.
-                  </p>
-
-                </div>
-                <a
-                  rel="noreferrer"
-                  target="_blank"
-                  class="cta-btn cta-btn--hero"
-                  href="https://github.com/Noob-Master-22/news-app"
-                >
-                  Source Code
-                </a>
-                
-              </div>
-            </div>
-            <div class="col-lg-8 col-sm-12">
-              <div class="project-wrapper__image load-hidden">
-                <a rel="noreferrer" href="#!" target="_blank">
-                  <div
-                    data-tilt
-                    data-tilt-max="4"
-                    data-tilt-glare="true"
-                    data-tilt-max-glare="0.5"
-                    class="thumbnail rounded js-tilt"
-                  >
-                    <img
-                      alt="Project Image"
-                      class="img-fluid"
-                      src="assets/Image-2.jpg"
-                    />
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-          <!-- /END Project -->
+    <div class="featured-project">
+      <div class="project-visual">🧠</div>
+      <div class="project-content">
+        <div class="project-tag">⭐ Featured Project</div>
+        <h3 class="project-title">JEE Math Mentor — Agentic AI Tutor</h3>
+        <p class="project-desc">Autonomous multi-agent tutoring system using LangGraph with orchestration across solver, verifier, and retriever agents. Features confidence-based routing, Human-in-the-Loop fallback, semantic RAG over JEE math content, and multimodal input via speech-to-text and OCR.</p>
+        <div class="project-stack">
+          <span class="stack-tag">LangGraph</span><span class="stack-tag">RAG</span>
+          <span class="stack-tag">Streamlit</span><span class="stack-tag">Python</span><span class="stack-tag">OCR</span>
         </div>
+        <div class="project-links"><a href="https://github.com/Noob-Master-22" target="_blank">↗ GitHub</a></div>
       </div>
-    </section>
-    <!-- /END Projects Section -->
+    </div>
 
-    <!-- **** Contact Section **** -->
-    <section id="contact">
-      <div class="container">
-        <h2 class="section-title">Contact</h2>
-        <div class="contact-wrapper load-hidden">
-          <p class="contact-wrapper__text">Looking for a Developer? Let’s Build Something Great Together!</p>
-          <a
-            rel="noreferrer"
-            target="_blank"
-            class="cta-btn cta-btn--resume"
-            href="mailto:satvikreddy221b@gmail.com"
-            >Contact ME!</a
-          >
-        </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="card-icon">⚖️</div>
+        <h4 class="card-title">Legal Document Intelligence</h4>
+        <p class="card-desc">NLP pipeline for legal contract parsing using spaCy NER. Outputs structured JSON with 85%+ confidence. Async FastAPI endpoint at 26ms avg response time, containerized via Docker.</p>
+        <div class="project-stack"><span class="stack-tag">FastAPI</span><span class="stack-tag">spaCy</span><span class="stack-tag">Docker</span></div>
+        <div class="project-links"><a href="https://github.com/Noob-Master-22" target="_blank">↗ GitHub</a></div>
       </div>
-    </section>
-    <!-- /END Contact Section -->
-
-    <!-- **** Footer Section **** -->
-    <footer class="footer navbar-static-bottom">
-      <div class="container">
-        <a rel="noreferrer" href="#top" class="back-to-top">
-          <i class="fa fa-angle-up fa-2x" aria-hidden="true"></i>
-        </a>
-        <div class="social-links">
-          <a rel="noreferrer" href="#!" target="_blank">
-            <i class="fa fa-twitter fa-inverse"></i>
-          </a>
-          <a rel="noreferrer" href="#!" target="_blank">
-            <i class="fa fa-linkedin fa-inverse"></i>
-          </a>
-          <a rel="noreferrer" href="https://github.com/Noob-Master-22" target="_blank">
-            <i class="fa fa-github fa-inverse"></i>
-          </a>
-        </div>
-
-        <hr />
-
-        <!-- Notice: if you want to give me some credit, it will be huge for me! if not, put your data on it -->
-        
-          
-        </p>
-
-        
+      <div class="project-card">
+        <div class="card-icon">🤖</div>
+        <h4 class="card-title">Domain LLM Fine-Tuning + RAG</h4>
+        <p class="card-desc">Fine-tuned Mistral 7B locally on MacBook M1 using LoRA/PEFT on 500 curated samples. Modular RAG pipeline with swappable retrieval and reranking. Validated with BLEU/ROUGE metrics.</p>
+        <div class="project-stack"><span class="stack-tag">Mistral 7B</span><span class="stack-tag">LoRA</span><span class="stack-tag">HuggingFace</span></div>
+        <div class="project-links"><a href="https://github.com/Noob-Master-22" target="_blank">↗ GitHub</a></div>
       </div>
-    </footer>
-    <!-- /END Footer Section -->
+      <div class="project-card">
+        <div class="card-icon">🧬</div>
+        <h4 class="card-title">Neurodivergence Screening System</h4>
+        <p class="card-desc">Full-stack ML screening tool using CatBoost. Resolved class imbalance with SMOTE/ADASYN — boosted accuracy from 86% → 95%. React + Flask with full data pipeline ownership.</p>
+        <div class="project-stack"><span class="stack-tag">CatBoost</span><span class="stack-tag">React</span><span class="stack-tag">Flask</span></div>
+        <div class="project-links"><a href="https://github.com/Noob-Master-22" target="_blank">↗ GitHub</a></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script defer type="module" src="index.js"></script>
-  </body>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="skills-container fade-in">
+    <div class="section-label">04. skills</div>
+    <h2 class="section-title">What I Work With</h2>
+    <div class="skill-group">
+      <div class="skill-group-title">LLM / Generative AI</div>
+      <div class="skill-pills">
+        <span class="pill pill-cyan">LangChain</span><span class="pill pill-cyan">LangGraph</span>
+        <span class="pill pill-cyan">OpenAI GPT-4</span><span class="pill pill-cyan">Azure OpenAI</span>
+        <span class="pill pill-cyan">Anthropic Claude</span><span class="pill pill-cyan">RAG Pipelines</span>
+        <span class="pill pill-cyan">Prompt Engineering</span><span class="pill pill-cyan">LlamaIndex</span>
+        <span class="pill pill-cyan">AutoGen</span><span class="pill pill-cyan">CrewAI</span><span class="pill pill-cyan">LangSmith</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">ML & Fine-Tuning</div>
+      <div class="skill-pills">
+        <span class="pill pill-purple">PyTorch</span><span class="pill pill-purple">HuggingFace</span>
+        <span class="pill pill-purple">LoRA / PEFT / QLoRA</span><span class="pill pill-purple">scikit-learn</span>
+        <span class="pill pill-purple">spaCy</span><span class="pill pill-purple">TensorFlow</span>
+        <span class="pill pill-purple">BLEU/ROUGE</span><span class="pill pill-purple">CatBoost</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Backend & Cloud / MLOps</div>
+      <div class="skill-pills">
+        <span class="pill pill-green">FastAPI</span><span class="pill pill-green">Flask</span>
+        <span class="pill pill-green">Docker</span><span class="pill pill-green">AWS Bedrock</span>
+        <span class="pill pill-green">AWS Lambda / S3 / EC2</span><span class="pill pill-green">GitHub Actions</span>
+        <span class="pill pill-green">MLflow</span><span class="pill pill-green">REST APIs</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Frontend & Languages</div>
+      <div class="skill-pills">
+        <span class="pill pill-pink">React</span><span class="pill pill-pink">TypeScript</span>
+        <span class="pill pill-pink">Streamlit</span><span class="pill pill-pink">HTML / CSS</span>
+        <span class="pill pill-pink">Python</span><span class="pill pill-pink">SQL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section>
+  <div id="contact-wrap" class="fade-in" id="contact">
+    <div class="section-label">05. contact</div>
+    <h2 class="section-title">Get In Touch</h2>
+    <p>I'm actively looking for new opportunities. Whether you have a role, a project, or just want to talk AI — my inbox is always open.</p>
+    <a href="mailto:satvik90110@gmail.com" class="contact-email">satvik90110@gmail.com</a>
+    <div class="social-links">
+      <a href="https://github.com/Noob-Master-22" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/satvik-r-3549352ab/" target="_blank">LinkedIn</a>
+      <a href="https://satvik14.netlify.app" target="_blank">Portfolio</a>
+    </div>
+  </div>
+</section>
+
+<footer>Built by Satvik Srujan Reddy · 2026</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script>
+  // Typed.js
+  new Typed('#typed', {
+    strings: ['production RAG pipelines.','multi-agent AI systems.','voice AI applications.','fine-tuned LLMs.','intelligent backends.'],
+    typeSpeed: 55, backSpeed: 35, backDelay: 2000, loop: true
+  });
+
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursor.style.left = (mouseX - 5) + 'px';
+    cursor.style.top = (mouseY - 5) + 'px';
+  });
+  (function animateRing() {
+    ringX += (mouseX - ringX - 20) * 0.12;
+    ringY += (mouseY - ringY - 20) * 0.12;
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  })();
+
+  // Nav scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Particle network canvas
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let W, H, pts = [];
+  function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+  resize(); window.addEventListener('resize', resize);
+  for (let i = 0; i < 75; i++) pts.push({ x: Math.random()*W, y: Math.random()*H, vx:(Math.random()-.5)*.4, vy:(Math.random()-.5)*.4, r: Math.random()*1.8+.8 });
+  (function draw() {
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p => {
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(0,212,255,0.65)'; ctx.fill();
+    });
+    for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++) {
+      const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+      if(d<130){ ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.strokeStyle=`rgba(0,212,255,${.12*(1-d/130)})`; ctx.lineWidth=.5; ctx.stroke(); }
+    }
+    requestAnimationFrame(draw);
+  })();
+</script>
+</body>
 </html>
